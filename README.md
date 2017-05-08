@@ -15,12 +15,21 @@ usage
 ```js
 var sortJson = require('sort-json');
 
-var copy = sortJson(object);
+var copy = sortJson.sortObjectProperties(object);
+```
+
+to also  sort string arrays 
+
+```js
+var sortJson = require('sort-json');
+
+var copy = sortJson.sortObjectPropertiesAndArrays(object);
 ```
 
 CLI usage
 ---------
 `sort-json file.json`
+`sort-json-array file.json`
 
 For now sort-json takes no other arguments, so the original file will be overwritten by a sorted JSON file, keeping the indentation of the original file.
 

@@ -7,7 +7,8 @@
     "detect-indent": "^4.0.0"
   },
   "bin": {
-    "sort-json": "./cmd.js"
+    "sort-json": "./cmd.js",
+    "sort-json-array": "./cmdArrays.js"
   },
   "devDependencies": {
     "chai": "^3.5.0",

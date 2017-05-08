@@ -37,7 +37,7 @@ function readEachFile(fileName) {
     }
 
     // Sorting
-    var sortedObject = sortJson.sortObjectProperties(json);
+    var sortedObject = sortJson.sortObjectPropertiesAndArrays(json);
 
     // Saving to file
     fs.writeFile(filePath, JSON.stringify(sortedObject, null, indent) + ((eol && eol.length === 2) ? eol[1] : ''), function(err) {

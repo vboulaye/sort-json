@@ -1,6 +1,6 @@
 const chai = require('chai');
 const dirtyChai = require('dirty-chai');
-const visit = require('../index').sortObjectProperties;
+const visit = require('../index').sortObjectPropertiesAndArrays;
 
 const expect = chai.expect;
 chai.use(dirtyChai);
@@ -10,10 +10,16 @@ describe('visit', () => {
     expect(visit(undefined)).to.be.undefined();
   });
 
-  it('does not change array order', () => {
+  it('does change number array order', () => {
     const givenData = [1, 5, 2, -1, 3];
 
-    expect(JSON.stringify(visit(givenData))).to.equal(JSON.stringify(givenData));
+    expect(JSON.stringify(visit(givenData))).to.equal(JSON.stringify([-1, 1, 2, 3, 5]));
+  });
+
+  it('does change string array order', () => {
+    const givenData = ['1', '5', '2', '-1', '3'];
+
+  expect(JSON.stringify(visit(givenData))).to.equal(JSON.stringify(['-1', '1', '2', '3', '5']));
   });
 
   it('sorts object by keys', () => {
@@ -26,6 +32,7 @@ describe('visit', () => {
   it('sorts nested object', () => {
     const givenData = {
       foo: [1, 2, 5, 2],
+      foo3: ['1', '2', '5', '2'],
       bar: {
         foo: 3,
         bar: 'lorem ipsum',
@@ -41,8 +48,9 @@ describe('visit', () => {
         foo: 3,
       },
       bar2: null,
-      foo: [1, 2, 5, 2],
+      foo: [1, 2, 2, 5],
       foo2: '',
+      foo3: ['1', '2', '2', '5'],
     };
 
     expect(JSON.stringify(visit(givenData))).to.equal(JSON.stringify(expectedData));
